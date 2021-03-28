@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1615289570 source:d:\projects\cpp\oop-ubung-2-class\main.cpp
+	<iostream>
+	<fstream>
+
