@@ -18,6 +18,8 @@ public:
 
     DSM(vector<string> element_names);
 
+    DSM(const DSM &other);
+
     int size();
 
     void set_element_name(int index, string name);

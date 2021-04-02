@@ -34,6 +34,13 @@ DSM::DSM(vector<string> element_names)
 			weight_matrix[i][j]=0;
 }
 
+DSM::DSM(const DSM &other)
+{//constructor by copying 
+	elem_names=other.elem_names;
+	elem_count=other.elem_count;
+	weight_matrix=other.weight_matrix;
+}
+
 void DSM::set_element_name(int index,string name)
 {//sets the name of an element by index, also handles resizing
 	
