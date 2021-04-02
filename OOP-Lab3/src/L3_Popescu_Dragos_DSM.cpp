@@ -4,9 +4,11 @@
 //#include <cstring>
 
 DSM::DSM(int elemCount)
-{//constructor for int input
+{//constructor for int input,throws exception for negative values
 	//elem_names=vector <string>(elemCount);
 	//elem_count=elem_names.size();
+	if(elemCount<0)
+	throw exception();
 	elem_count=elemCount;
 	weight_matrix = new int*[elem_count];
 	for(int i=0;i<elem_count;i++)
@@ -176,6 +178,8 @@ int DSM::count_all_links()
 
 double DSM::calculate_matrix_density()
 {//returns the density of non-0 weights the matrix as a double (between 1 and 0)
+	if(elem_count<=0)
+		throw exception();
 	double count=count_all_links(),val=elem_count*elem_count;
 	return count/val;
 }

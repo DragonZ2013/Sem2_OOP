@@ -6,6 +6,22 @@ using namespace std;
 
 void runTests_intConstructor()
 {
+    
+    try{
+        DSM dsm_fail = DSM(-2);
+        assert(false);
+    }
+    catch(exception&){
+        assert(true);
+    };
+    try{
+        DSM dsm_fail2 = DSM(0);
+        dsm_fail2.calculate_matrix_density();
+        assert(false);
+    }
+    catch(exception&){
+        assert(true);
+    };
     DSM dsm = DSM(4);
 
     dsm.set_element_name(0,"Auto");
