@@ -10,7 +10,7 @@ private:
 
     int elem_count;
     vector<string> elem_names;
-    int **weight_matrix; 
+    TWeight **weight_matrix; 
 
 public:
 

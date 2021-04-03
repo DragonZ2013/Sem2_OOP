@@ -10,10 +10,10 @@ DSM::DSM(int elemCount)
 	if(elemCount<0)
 	throw exception();
 	elem_count=elemCount;
-	weight_matrix = new int*[elem_count];
+	weight_matrix = new TWeight*[elem_count];
 	for(int i=0;i<elem_count;i++)
 	{
-		weight_matrix[i]=new int[elem_count];
+		weight_matrix[i]=new TWeight[elem_count];
 		elem_names.push_back("temp");
 	}
 	
@@ -27,9 +27,9 @@ DSM::DSM(vector<string> element_names)
 {//constructor for vector<string> input
 	elem_names=element_names;
 	elem_count=elem_names.size();
-	weight_matrix = new int*[elem_count];
+	weight_matrix = new TWeight*[elem_count];
 	for(int i=0;i<elem_count;i++)
-		weight_matrix[i]=new int[elem_count];
+		weight_matrix[i]=new TWeight[elem_count];
 	
 	for(int i=0;i<elem_count;i++)
 		for(int j=0;j<elem_count;j++)
@@ -51,10 +51,10 @@ void DSM::set_element_name(int index,string name)
 		for(int i=elem_count;i<=index;i++)
 			elem_names.push_back("temp");
 		int new_elem_count=index+1;
-		int **new_weight_matrix;
-		new_weight_matrix = new int*[new_elem_count+1];
+		TWeight **new_weight_matrix;
+		new_weight_matrix = new TWeight*[new_elem_count+1];
 		for(int i=0;i<new_elem_count;i++)
-			new_weight_matrix[i]=new int[new_elem_count+1];
+			new_weight_matrix[i]=new TWeight[new_elem_count+1];
 		for(int i=0;i<new_elem_count;i++)
 			for(int j=0;j<new_elem_count;j++)
 				if(i<elem_count&&j<elem_count)
@@ -92,7 +92,7 @@ int DSM::get_index(string name)
 	return -1;
 }
 
-void DSM::add_link(string from_element,string to_element,int weight)
+void DSM::add_link(string from_element,string to_element,TWeight weight)
 {//adds links between 2 element, also requests resize if either/both do not exist
 	
 	int from_index=get_index(from_element);
