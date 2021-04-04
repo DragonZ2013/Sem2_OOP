@@ -103,10 +103,14 @@ void DSM::add_link(string from_element,string to_element,TWeight weight)
 		from_index=elem_count;
 		set_element_name(from_index,from_element);
 	}
-	if(to_index==-1)
+	if(to_index==-1&&from_element!=to_element)
 	{
 		to_index=elem_count;
 		set_element_name(to_index,to_element);
+	}
+	if(to_index==-1&&to_element==from_element)
+	{
+		to_index=get_index(from_element);
 	}
 	
 	weight_matrix[from_index][to_index]=weight;
@@ -194,6 +198,38 @@ void DSM::print_matrix()
 			cout<<weight_matrix[i][j]<<' ';
 		cout<<'\n';
 		}
+}
+
+void DSM::matrix_to_file(ofstream &myfile)
+{
+	for(int i=0;i<elem_count;i++)
+		for(int j=0;j<elem_count;j++)
+			{myfile<<elem_names[i]<<","<<elem_names[j]<<","<<weight_matrix[i][j];
+			if(i!=elem_count-1||j!=elem_count-1)
+				myfile<<'\n';
+			}
+		
+}
+
+void DSM::file_to_matrix(ifstream &myfile)
+{//assumes correct formatting (ex matrix_to_file) and appends the file values on top of existing values
+	//int pos_elem=0;
+	while(!myfile.eof())
+	{	
+		string temp1,temp2,temp3;
+		TWeight weight_temp;
+		getline(myfile,temp1,',');
+		getline(myfile,temp2,',');
+		getline(myfile,temp3);
+		weight_temp=stoi(temp3);//assumes TWeight is int
+		/*if(get_index(temp1)==-1)
+			elem_names[pos_elem++]=temp1;
+		if(get_index(temp2)==-1)
+			elem_names[pos_elem++]=temp2;
+		
+		weight_matrix[get_index(temp1)][get_index(temp2)]=weight_temp;*/
+		add_link(temp1,temp2,weight_temp);
+	}
 }
 
 DSM::~DSM()

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <fstream>
 typedef int TWeight;//template for Weight
 using namespace std;
 
@@ -45,6 +46,10 @@ public:
     double calculate_matrix_density();
 
     void print_matrix();
+
+    void matrix_to_file(ofstream &myfile);
+
+    void file_to_matrix(ifstream &myfile);
 
     ~DSM();
 };

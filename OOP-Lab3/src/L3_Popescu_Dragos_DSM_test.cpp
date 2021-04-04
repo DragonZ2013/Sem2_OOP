@@ -1,8 +1,19 @@
 #include <iostream>
 #include <cassert>
 #include "L3_Popescu_Dragos_DSM.h"
+//#include <fstream>
 using namespace std;
 
+
+void Write_To_File(DSM dsm, string filename)
+{ofstream myfile (filename);
+dsm.matrix_to_file(myfile);
+}
+
+void Read_From_File(DSM& dsm,string filename)
+{ifstream myfile(filename);
+dsm.file_to_matrix(myfile);
+}
 
 void runTests_intConstructor()
 {
@@ -59,6 +70,7 @@ void runTests_intConstructor()
     };
     assert(dsm.count_from_links("Motor") == 1);
     //dsm.print_matrix();
+    Write_To_File(dsm,"text1.txt");
 }
 
 void runTests_vectorConstructor()
@@ -98,6 +110,7 @@ void runTests_vectorConstructor()
         assert(true);
     };
     assert(dsm.count_from_links("Motor") == 1);
+    Write_To_File(dsm,"text2.txt");
 }
 
 void runTests_copyConstructor()
@@ -138,6 +151,27 @@ void runTests_copyConstructor()
         assert(true);
     };
     assert(dsm.count_from_links("Motor") == 1);
+    Write_To_File(dsm,"text3.txt");
+
+}
+
+void runTests_readFromFile()
+{
+    DSM dsm = DSM(0);
+    Read_From_File(dsm,"text1.txt");
+    assert(dsm.size()==8);
+    assert(dsm.count_all_links()==6);
+    assert(dsm.count_from_links("Sitze")==0);
+    try{
+        dsm.count_from_links("Inexisting")==0;
+        assert(false);
+    }
+    catch(exception&){
+        assert(true);
+    };
+    assert(dsm.count_from_links("Motor") == 1);
+    //dsm.print_matrix();
+
 }
 
 int main() 
@@ -145,5 +179,7 @@ int main()
     runTests_intConstructor();
     runTests_vectorConstructor();
     runTests_copyConstructor();
+    runTests_readFromFile();
+    
     return 0;
 }
